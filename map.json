@@ -1,0 +1,56 @@
+{
+  "version": "1.0", // Version of the map. Must be set imperatively at the begining.
+
+  "data": // Data related to the map.
+  {
+    "size": // Size of the map.
+    {
+      "width": 10,
+      "height": 10
+    },
+
+    "spawn":
+    {
+      "x": 0,
+      "y": 0
+    },
+
+    "music": 0, // ID of the music that should be played in the level.
+    "background": 0, // Background image that should be displayed.
+
+    "options": // Additional data (optional).
+    {
+      "name": "Map1", // Name of the map.
+      "description": "" // Description of the map.
+    }
+  },
+
+  "map": // Data related to the tiles.
+  [ // List of lines.
+    [ // List of columns.
+      {
+        "tile": 0 // ID of the tile.
+      }
+    ],
+    [
+      {
+        "tile": 1,
+        "data": // Data related to the tile. Each tile has specific data, be careful.
+        {
+          "activates": // This is a switch.
+          {
+            "tile":
+            {
+              "x": 2,
+              "y": 3
+            },
+            "data": 1
+          }
+        }
+      }
+    ],
+    [
+
+    ]
+  ]
+}
