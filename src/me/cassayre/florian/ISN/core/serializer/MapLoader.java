@@ -51,9 +51,7 @@ public class MapLoader
             description = getSafe(options, "description", new JsonPrimitive("")).getAsString();
         }
 
-        JsonObject map = object.getAsJsonObject("map");
-
-        JsonArray lines = map.getAsJsonArray();
+        JsonArray lines = object.getAsJsonArray("map");
 
         TileMap tileMap = new TileMap(width, height);
 
@@ -104,6 +102,7 @@ public class MapLoader
         data.add("options", options);
 
         object.add("data", data);
+
 
         JsonArray lines = new JsonArray();
 

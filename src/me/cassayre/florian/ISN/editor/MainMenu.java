@@ -1,13 +1,17 @@
 package me.cassayre.florian.ISN.editor;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import me.cassayre.florian.ISN.core.map.TileMap;
 import me.cassayre.florian.ISN.core.serializer.MapLoader;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileOutputStream;
+import java.io.*;
+import java.text.ParseException;
 
 public class MainMenu extends JMenuBar
 {
@@ -38,7 +42,33 @@ public class MainMenu extends JMenuBar
             @Override
             public void actionPerformed(ActionEvent e)
             {
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setFileFilter(new FileNameExtensionFilter("Fichier MAP","map"));
+                if (fileChooser.showOpenDialog(Editor.get().getWindow()) == JFileChooser.APPROVE_OPTION) {
+                    File file = fileChooser.getSelectedFile();
 
+                    JsonObject object = null;
+
+                    try
+                    {
+                        object = new JsonParser().parse(new FileReader(file)).getAsJsonObject();
+                    } catch(FileNotFoundException e1)
+                    {
+                        e1.printStackTrace();
+                    }
+
+
+                    try
+                    {
+                        TileMap map = MapLoader.load(object);
+
+                        Editor.get().setTileMap(map);
+
+                    } catch(UnsupportedEncodingException | ParseException e1)
+                    {
+                        e1.printStackTrace();
+                    }
+                }
             }
         });
 
@@ -49,19 +79,27 @@ public class MainMenu extends JMenuBar
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                String filename = "E:/testjson.json";
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setFileFilter(new FileNameExtensionFilter("Fichier MAP","map"));
+                if (fileChooser.showSaveDialog(Editor.get().getWindow()) == JFileChooser.APPROVE_OPTION) {
+                    File file = fileChooser.getSelectedFile();
 
-                Gson gson = new Gson();
-                String s = gson.toJson(MapLoader.serialize(Editor.get().getTileMap()));
+                    Gson gson = new Gson();
+                    String s = gson.toJson(MapLoader.serialize(Editor.get().getTileMap()));
 
-                FileOutputStream outputStream;
+                    FileOutputStream outputStream;
 
-                try {
-                    outputStream = new FileOutputStream(filename);
-                    outputStream.write(s.getBytes());
-                    outputStream.close();
-                } catch (Exception ex) {
-                    ex.printStackTrace();
+                    if(!file.getAbsolutePath().endsWith(".map"))
+                        file = new File(file.getAbsolutePath() + ".map");
+
+                    try
+                    {
+                        outputStream = new FileOutputStream(file);
+                        outputStream.write(s.getBytes());
+                        outputStream.close();
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
                 }
             }
         });
