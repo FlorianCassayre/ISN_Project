@@ -12,6 +12,7 @@ import java.awt.event.MouseEvent;
 
 public class MapComponent extends JPanel
 {
+    public static final int OFFSET = 4;
 
     private int selectX = -1, selectY = -1;
 
@@ -26,13 +27,13 @@ public class MapComponent extends JPanel
             @Override
             public void mousePressed(MouseEvent e)
             {
-                selectX = (int) Math.floor(e.getX() / 32);
-                selectY = (int) Math.floor(e.getY() / 32);
+                selectX = (int) Math.floor(e.getX() / Window.TEXTURES_SIZE);
+                selectY = (int) Math.floor(e.getY() / Window.TEXTURES_SIZE);
 
                 TileMap map = Editor.get().getTileMap();
 
-                int realX = selectX - 4;
-                int realY = selectY - 4;
+                int realX = selectX - OFFSET;
+                int realY = selectY - OFFSET;
 
                 if(realX >= 0 && realY >= 0 && realX < map.getWidth() && realY < map.getHeight())
                     map.setTile(realX, realY, new Tile(Editor.get().getWindow().getToolsComponent().getMainLayer().getSelected()));
@@ -51,7 +52,7 @@ public class MapComponent extends JPanel
 
         TextureManager textureManager = Editor.get().getWindow().getTextureManager();
 
-        clear(g, getWidth() / 32 + 1, getHeight() / 32 + 1, map);
+        clear(g, getWidth() / Window.TEXTURES_SIZE + 1, getHeight() / Window.TEXTURES_SIZE + 1, map);
 
         if(map != null)
         {
@@ -62,13 +63,13 @@ public class MapComponent extends JPanel
                     Tile tile = map.getTile(x, y);
 
                     if(!tile.getTexture().equals(Texture.AIR))
-                        textureManager.drawTexture(g, tile.getTexture(), x * 32 + 4 * 32, y * 32 + 4 * 32, 32);
+                        textureManager.drawTexture(g, tile.getTexture(), x * Window.TEXTURES_SIZE + OFFSET * Window.TEXTURES_SIZE, y * Window.TEXTURES_SIZE + OFFSET * Window.TEXTURES_SIZE, Window.TEXTURES_SIZE);
                 }
             }
 
             g.setColor(Color.WHITE);
-            g.drawRect((int) (map.getSpawnX() * 32) + 4 * 32, (int) (map.getSpawnY() * 32) + 4 * 32 - 32 * 2, 32, 32 * 2);
-            g.drawString("SPAWN", (int) (map.getSpawnX() * 32) + 4 * 32 - 1, (int) (map.getSpawnY() * 32) + 4 * 32);
+            g.drawRect((int) (map.getSpawnX() * Window.TEXTURES_SIZE) + OFFSET * Window.TEXTURES_SIZE, (int) (map.getSpawnY() * Window.TEXTURES_SIZE) + OFFSET * Window.TEXTURES_SIZE - Window.TEXTURES_SIZE * 2, Window.TEXTURES_SIZE, Window.TEXTURES_SIZE * 2);
+            g.drawString("SPAWN", (int) (map.getSpawnX() * Window.TEXTURES_SIZE) + OFFSET * Window.TEXTURES_SIZE - 1, (int) (map.getSpawnY() * Window.TEXTURES_SIZE) + OFFSET * Window.TEXTURES_SIZE);
         }
 
         g.setColor(Color.RED);
@@ -82,13 +83,11 @@ public class MapComponent extends JPanel
 
     private void clear(Graphics g, int width, int height, TileMap map)
     {
-        final int step = 32;
-
         for(int x = 0; x < width; x++)
         {
             for(int y = 0; y < height; y++)
             {
-                if(map != null && x < map.getWidth() + 4 && x >= 4 && y < map.getHeight() + 4 && y >= 4)
+                if(map != null && x < map.getWidth() + OFFSET && x >= OFFSET && y < map.getHeight() + OFFSET && y >= OFFSET)
                 {
                     if((x + y) % 2 == 0)
                     {
@@ -102,7 +101,7 @@ public class MapComponent extends JPanel
                 {
                     g.setColor(Color.BLUE);
                 }
-                g.fillRect(x * step, y * step, step, step);
+                g.fillRect(x * Window.TEXTURES_SIZE, y * Window.TEXTURES_SIZE, Window.TEXTURES_SIZE, Window.TEXTURES_SIZE);
 
 
             }

@@ -8,6 +8,7 @@ import java.io.IOException;
 
 public class Window extends JFrame
 {
+    public static final int TEXTURES_SIZE = 32;
 
     private final ScrollFrame scrollFrame;
     private final MapComponent mapComponent;

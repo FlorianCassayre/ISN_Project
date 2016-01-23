@@ -12,6 +12,7 @@ public class Editor
     private final Window window;
 
     private TileMap tileMap = null;
+    private boolean canSafeClose = true;
 
     public Editor()
     {
@@ -45,6 +46,8 @@ public class Editor
 
         window.getMapComponent().setPreferredSize(new Dimension(tileMap.getWidth() * 32 + 8 * 32, tileMap.getHeight() * 32 + 8 * 32));
 
+
+        canSafeClose = true;
 
         System.out.println(tileMap.getWidth() + " " + tileMap.getHeight());
         window.invalidate();

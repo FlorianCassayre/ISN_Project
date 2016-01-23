@@ -75,9 +75,13 @@ public class MainMenu extends JMenuBar
             public void actionPerformed(ActionEvent e)
             {
 
-                int dialogResult = JOptionPane.showConfirmDialog(null, "Voulez-vous vraiment quitter ?","Attention", JOptionPane.YES_NO_OPTION);
-                if(dialogResult == JOptionPane.YES_OPTION){
-                    System.exit(0);
+                if(Editor.get().getTileMap() != null)
+                {
+                    int dialogResult = JOptionPane.showConfirmDialog(null, "Voulez-vous vraiment quitter ?", "Attention", JOptionPane.YES_NO_OPTION);
+                    if(dialogResult == JOptionPane.YES_OPTION)
+                    {
+                        System.exit(0);
+                    }
                 }
             }
         });

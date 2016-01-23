@@ -11,23 +11,24 @@ import java.awt.event.MouseEvent;
 
 public class MainLayer extends JPanel
 {
-
     private int selectX = 0, selectY = 0;
 
     public MainLayer()
     {
+
+
         addMouseListener(new MouseAdapter()
         {
             @Override
             public void mousePressed(MouseEvent e)
             {
-                int x1 = (int) Math.floor(e.getX() / 32);
-                int y1 = (int) Math.floor(e.getY() / 32);
+                int x1 = (int) Math.floor(e.getX() / Window.TEXTURES_SIZE);
+                int y1 = (int) Math.floor(e.getY() / Window.TEXTURES_SIZE);
 
-                if(x1 >= 4)
+                if(x1 >= ToolsComponent.ELEMENTS_PER_LINE)
                     return;
 
-                int i = x1 + y1 * 4;
+                int i = x1 + y1 * ToolsComponent.ELEMENTS_PER_LINE;
 
                 if(i >= Texture.values().length) // Texture not in bounds
                     return;
@@ -60,13 +61,13 @@ public class MainLayer extends JPanel
         {
             Texture texture = Texture.getById(i);
 
-            if(k != 0 && k % 4 == 0)
+            if(k != 0 && k % ToolsComponent.ELEMENTS_PER_LINE == 0)
             {
                 y++;
                 x = 0;
             }
 
-            textureManager.drawTexture(g, texture, x * 32, y * 32, 32);
+            textureManager.drawTexture(g, texture, x * Window.TEXTURES_SIZE, y * Window.TEXTURES_SIZE, Window.TEXTURES_SIZE);
 
             x++;
 
@@ -75,10 +76,11 @@ public class MainLayer extends JPanel
 
         g.setColor(Color.RED);
 
-        g.drawLine(selectX * 32 - 1, selectY * 32 - 1, selectX * 32 + 32, selectY * 32 - 1);
-        g.drawLine(selectX * 32 - 1, selectY * 32 - 1, selectX * 32 - 1, selectY * 32 + 32);
-        g.drawLine(selectX * 32 + 32, selectY * 32 - 1, selectX * 32 + 32, selectY * 32 + 32);
-        g.drawLine(selectX * 32 - 1, selectY * 32 + 32, selectX * 32 + 32, selectY * 32 + 32);
+        // TODO simplify this...
+        g.drawLine(selectX * Window.TEXTURES_SIZE - 1, selectY * Window.TEXTURES_SIZE - 1, selectX * Window.TEXTURES_SIZE + Window.TEXTURES_SIZE, selectY * Window.TEXTURES_SIZE - 1);
+        g.drawLine(selectX * Window.TEXTURES_SIZE - 1, selectY * Window.TEXTURES_SIZE - 1, selectX * Window.TEXTURES_SIZE - 1, selectY * Window.TEXTURES_SIZE + Window.TEXTURES_SIZE);
+        g.drawLine(selectX * Window.TEXTURES_SIZE + Window.TEXTURES_SIZE, selectY * Window.TEXTURES_SIZE - 1, selectX * Window.TEXTURES_SIZE + Window.TEXTURES_SIZE, selectY * Window.TEXTURES_SIZE + Window.TEXTURES_SIZE);
+        g.drawLine(selectX * Window.TEXTURES_SIZE - 1, selectY * Window.TEXTURES_SIZE + Window.TEXTURES_SIZE, selectX * Window.TEXTURES_SIZE + Window.TEXTURES_SIZE, selectY * Window.TEXTURES_SIZE + Window.TEXTURES_SIZE);
     }
 
     public Texture getSelected()
