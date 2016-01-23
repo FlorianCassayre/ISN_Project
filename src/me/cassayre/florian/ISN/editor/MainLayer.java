@@ -85,6 +85,6 @@ public class MainLayer extends JPanel
 
     public Texture getSelected()
     {
-        return Texture.values()[selectX + selectY * 4];
+        return Texture.values()[selectX + selectY * ToolsComponent.ELEMENTS_PER_LINE];
     }
 }

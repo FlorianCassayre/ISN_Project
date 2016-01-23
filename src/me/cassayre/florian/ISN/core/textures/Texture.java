@@ -12,8 +12,24 @@ public enum Texture
     GRASS_LEFT(1, 0, 0, RectangleCollision.class),
     GRASS(2, 1, 0, RectangleCollision.class),
     GRASS_RIGHT(3, 2, 0, RectangleCollision.class),
-    DIRT(4, 1, 1, RectangleCollision.class);
+    DIRT(4, 1, 1, RectangleCollision.class),
+    STONE_DESCENT_LEFT(5, 3, 0, RectangleCollision.class), // TODO descent collision.
+    STONE_DESCENT_RIGHT(6, 5, 0, RectangleCollision.class), // TODO
+    STONE_PLATFORM(7, 4, 0, RectangleCollision.class),
+    STONE(8, 4, 1, RectangleCollision.class),
+    STONE_SLOPE_LEFT(9, 6, 0, RectangleCollision.class), // TODO
+    STONE_SLOPE_RIGHT(10, 8, 0, RectangleCollision.class), // TODO
+    STONE_CEILING(11, 7, 0, RectangleCollision.class),
 
+    TOILETS_0_0(12, 0, 2, NoCollision.class),
+    TOILETS_1_0(13, 1, 2, NoCollision.class),
+    TOILETS_2_0(14, 2, 2, NoCollision.class),
+    TOILETS_0_1(15, 0, 3, NoCollision.class),
+    TOILETS_1_1(16, 1, 3, NoCollision.class),
+    TOILETS_2_1(17, 2, 3, NoCollision.class),
+    TOILETS_0_2(18, 0, 4, NoCollision.class),
+    TOILETS_1_2(19, 1, 4, NoCollision.class),
+    TOILETS_2_2(20, 2, 4, NoCollision.class);
 
 
     private final int ID;
