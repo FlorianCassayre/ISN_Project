@@ -50,6 +50,9 @@ public class Editor
         canSafeClose = true;
 
         System.out.println(tileMap.getWidth() + " " + tileMap.getHeight());
+
+        window.getInfoComponent().update();
+
         window.invalidate();
     }
 

@@ -38,6 +38,8 @@ public class MapComponent extends JPanel
                 if(realX >= 0 && realY >= 0 && realX < map.getWidth() && realY < map.getHeight())
                     map.setTile(realX, realY, new Tile(Editor.get().getWindow().getToolsComponent().getMainLayer().getSelected()));
 
+                Editor.get().getWindow().getInfoComponent().update();
+
                 repaint();
             }
         });
@@ -106,5 +108,15 @@ public class MapComponent extends JPanel
 
             }
         }
+    }
+
+    public int getSelectedX()
+    {
+        return selectX - OFFSET;
+    }
+
+    public int getSelectedY()
+    {
+        return selectY - OFFSET;
     }
 }

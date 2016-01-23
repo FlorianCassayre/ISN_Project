@@ -17,6 +17,8 @@ public class Window extends JFrame
     private final ToolsComponent toolsComponent;
     private final WorkingComponent working;
 
+    private final InfoComponent infoComponent;
+
     private TextureManager textureManager;
 
     public Window()
@@ -32,7 +34,13 @@ public class Window extends JFrame
         scrollFrame.setPreferredSize(new Dimension(800,300));
 
         toolsComponent = new ToolsComponent();
-        working = new WorkingComponent(scrollFrame, toolsComponent);
+        infoComponent = new InfoComponent();
+
+        JSplitPane splitTools = new JSplitPane(JSplitPane.VERTICAL_SPLIT, toolsComponent, infoComponent);
+        splitTools.setResizeWeight(1);
+        add(splitTools);
+
+        working = new WorkingComponent(scrollFrame, splitTools);
 
         this.setContentPane(working);
 
@@ -69,5 +77,10 @@ public class Window extends JFrame
     public ToolsComponent getToolsComponent()
     {
         return toolsComponent;
+    }
+
+    public InfoComponent getInfoComponent()
+    {
+        return infoComponent;
     }
 }

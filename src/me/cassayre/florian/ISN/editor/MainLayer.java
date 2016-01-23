@@ -16,7 +16,6 @@ public class MainLayer extends JPanel
     public MainLayer()
     {
 
-
         addMouseListener(new MouseAdapter()
         {
             @Override
@@ -35,6 +34,8 @@ public class MainLayer extends JPanel
 
                 selectX = x1;
                 selectY = y1;
+
+                Editor.get().getWindow().getInfoComponent().update();
 
                 repaint();
             }
